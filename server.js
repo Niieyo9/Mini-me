@@ -199,8 +199,9 @@ Extra intelligence rules:
   }
 });
 
-app.get('*', (req, res, next) => {
-  if (req.path.startsWith('/api/')) return next();
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
   const target = req.path === '/' ? 'index.html' : req.path.slice(1);
   return res.sendFile(path.join(__dirname, target), (err) => {
     if (err) res.status(404).sendFile(path.join(__dirname, 'index.html'));
