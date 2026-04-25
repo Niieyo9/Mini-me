@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini-Me</title>
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body { overflow:hidden; }
+    .splash {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      isolation: isolate;
+    }
+    .splash-card {
+      width: min(440px, calc(100vw - 28px));
+      padding: 36px 28px;
+      border-radius: 32px;
+    }
+    .splash-logo {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      border-radius: 28px;
+      margin-bottom: 18px;
+      animation: pulseLogo 3.5s ease both;
+    }
+    .splash h1 { margin: 0; font-size: 2rem; letter-spacing: -.04em; }
+    .splash p { margin: 10px 0 0; color: var(--muted); }
+    .progress {
+      margin-top: 18px;
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255,255,255,.06);
+    }
+    .progress span {
+      display:block;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #ff9b2f, #ffd24a, #ff4d9a, #8c52ff);
+      transform-origin: left center;
+      animation: loadBar 3.5s linear forwards;
+    }
+    @keyframes loadBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    @keyframes pulseLogo {
+      0% { opacity: 0; transform: scale(.9); }
+      20% { opacity: 1; transform: scale(1); }
+      75% { opacity: 1; transform: scale(1.02); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .splash-orbit {
+      position: relative;
+      width: 152px;
+      height: 152px;
+      margin: 0 auto 20px;
+      display: grid;
+      place-items: center;
+    }
+    .splash-focus-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background:
+        conic-gradient(from 120deg, rgba(255,145,63,.08), rgba(255,72,164,.62), rgba(89,196,255,.34), rgba(255,209,77,.48), rgba(255,145,63,.08));
+      -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 10px), #000 calc(100% - 9px));
+      mask: radial-gradient(farthest-side, transparent calc(100% - 10px), #000 calc(100% - 9px));
+      opacity: .72;
+      animation: splashOrbit 7.5s linear infinite;
+      filter: drop-shadow(0 0 16px rgba(255,82,168,.18));
+    }
+    .splash-orbit::after {
+      content: '';
+      position: absolute;
+      inset: 18px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(255,255,255,.08), rgba(255,255,255,.02) 56%, transparent 70%);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), 0 18px 48px rgba(0,0,0,.42);
+    }
+    .splash-logo {
+      position: relative;
+      z-index: 2;
+      margin-bottom: 0 !important;
+      width: 92px !important;
+      height: 92px !important;
+      border-radius: 24px !important;
+      animation: splashLogoFloat 3.8s ease-in-out infinite !important;
+    }
+    @keyframes splashOrbit {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes splashLogoFloat {
+      0%,100% { transform: translateY(0) scale(1); opacity: 1; }
+      50% { transform: translateY(-4px) scale(1.015); opacity: .98; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-bg">
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-ribbon ribbon-1"></div>
+    <div class="bg-ribbon ribbon-2"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-noise"></div>
+  </div>
+  <main class="splash startup-fade">
+    <section class="glass-card splash-card">
+      <div class="splash-orbit" aria-hidden="true">
+        <div class="splash-focus-ring"></div>
+        <img src="assets/logo.png" alt="Mini-Me logo" class="splash-logo" />
+      </div>
+      <h1>Mini-Me</h1>
+      <p>Loading your personal AI assistant…</p>
+      <div class="progress" aria-hidden="true"><span></span></div>
+    </section>
+  </main>
+  <script>
+    setTimeout(() => { window.location.href = 'chat.html'; }, 3500);
+  </script>
+</body>
+</html>
